@@ -1,0 +1,67 @@
+<div class="max-w-6xl mx-auto p-6">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-semibold text-gray-800">Products</h1>
+    <a
+      routerLink="/inventory/products/new"
+      class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition"
+    >
+      + Add Product
+    </a>
+  </div>
+
+  @if (products().length === 0) {
+  <div class="text-center py-16 text-gray-500 border border-dashed rounded-lg">
+    No products yet. Click "Add Product" to create one.
+  </div>
+  } @else {
+  <div class="overflow-x-auto border rounded-lg">
+    <table class="min-w-full divide-y divide-gray-200 text-sm">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-4 py-3 text-left font-medium text-gray-600">SKU</th>
+          <th class="px-4 py-3 text-left font-medium text-gray-600">Name</th>
+          <th class="px-4 py-3 text-left font-medium text-gray-600">Brand</th>
+          <th class="px-4 py-3 text-left font-medium text-gray-600">
+            Manufacturer
+          </th>
+          <th class="px-4 py-3 text-left font-medium text-gray-600">
+            Pack Size
+          </th>
+          <th class="px-4 py-3 text-right font-medium text-gray-600">MRP</th>
+          <th class="px-4 py-3 text-right font-medium text-gray-600">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 bg-white">
+        @for (product of products(); track product.id) {
+        <tr class="hover:bg-gray-50">
+          <td class="px-4 py-3 text-gray-500">{{ product.sku }}</td>
+          <td class="px-4 py-3 font-medium text-gray-800">
+            {{ product.name }}
+          </td>
+          <td class="px-4 py-3 text-gray-600">{{ product.brand }}</td>
+          <td class="px-4 py-3 text-gray-600">{{ product.manufacturer }}</td>
+          <td class="px-4 py-3 text-gray-600">{{ product.packSize }}</td>
+          <td class="px-4 py-3 text-right text-gray-800">₹{{ product.mrp }}</td>
+          <td class="px-4 py-3 text-right space-x-3">
+            <button
+              (click)="onEdit(product.id)"
+              class="text-blue-600 hover:text-blue-800 font-medium"
+            >
+              Edit
+            </button>
+            <button
+              (click)="onDelete(product.id)"
+              class="text-red-600 hover:text-red-800 font-medium"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
+</div>
